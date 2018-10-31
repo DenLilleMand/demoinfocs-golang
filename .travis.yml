@@ -9,6 +9,9 @@ go:
 env:
   - GO111MODULE=on
 
+# Disable Travis's default 'go get' step, since we use Go modules
+install: true
+
 before_script:
   # Download test data
   - pushd cs-demos && git lfs pull -I '*' && popd
