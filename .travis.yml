@@ -8,7 +8,12 @@ go:
 
 before_script:
   # Install gometalinter
-  - wget -O gometalinter.tgz https://github.com/alecthomas/gometalinter/releases/download/v2.0.11/gometalinter-2.0.11-linux-amd64.tar.gz && tar -zxvf gometalinter.tgz
+  - gometalinter_version=2.0.11
+  - gometalinter_bin=gometalinter-${gometalinter_version}-linux-amd64
+  - wget https://github.com/alecthomas/gometalinter/releases/download/v${gometalinter_version}/${gometalinter_bin}.tar.gz
+  - tar -zxvf ${gometalinter_bin}.tar.gz
+  - export PATH=$PATH:$(pwd)/${gometalinter_bin}
+
   # Download test data
   - pushd cs-demos && git lfs pull -I '*' && popd
 
