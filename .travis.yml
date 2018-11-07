@@ -7,11 +7,18 @@ go:
   - master
 
 before_script:
+  # Install gometalinter
+  - wget -O gometalinter.tgz https://github.com/alecthomas/gometalinter/releases/download/v2.0.11/gometalinter-2.0.11-linux-amd64.tar.gz && tar -zxvf gometalinter.tgz
   # Download test data
   - pushd cs-demos && git lfs pull -I '*' && popd
 
 script:
   - go build
+
+  # Lint files that changed
+  - changed_files=$(git diff --name-status ${TRAVIS_COMMIT_RANGE/.../..} | cut -f2 | paste -sd '|' -)
+  - linter_output=$(gometalinter ./... --vendor -s msg | grep -E $changed_files | sort)
+  - printf $linter_output | if [[ $(wc -l) -ne 0 ]]; then echo $linter_output && exit 1; fi
 
   # Get list of tests to run with race detection.
   # We don't want to run the entire demo set with it because it's large and race tests take a lot longer.
