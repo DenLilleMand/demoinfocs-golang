@@ -17,7 +17,7 @@ script:
   - go build
 
   # Lint changed code
-  - base_rev=$(echo $TRAVIS_COMMIT_RANGE | cut -f1 -d'.')
+  - base_rev=$(echo $TRAVIS_COMMIT_RANGE | cut -f1 -d'.') && echo "Linting changes since $base_rev"
   - golangci-lint run --new-from-rev $base_rev
 
   # Get list of tests to run with race detection.
