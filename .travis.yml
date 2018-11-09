@@ -22,8 +22,8 @@ script:
 
   # Lint files that changed
   - changed_files=$(git diff --name-status ${TRAVIS_COMMIT_RANGE/.../..} | cut -f2 | paste -sd '|' -)
-  - linter_output=$(gometalinter ./... --vendor -s msg | grep -E $changed_files | sort)
-  - if [[ "$linter_output" -ne "" ]]; then echo $linter_output && exit 1; fi
+  - linter_output=$(gometalinter ./... --vendor -s msg | grep -E "$changed_files" | sort)
+  - if [[ "$linter_output" -ne "" ]]; then echo "$linter_output" && exit 1; fi
 
   # Get list of tests to run with race detection.
   # We don't want to run the entire demo set with it because it's large and race tests take a lot longer.
