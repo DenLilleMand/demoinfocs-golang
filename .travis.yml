@@ -18,7 +18,7 @@ script:
 
   # Lint changed code
   - base_rev=$(echo $TRAVIS_COMMIT_RANGE | cut -f1 -d'.')
-  - golangci-lint run --skip-dirs msg --new-from-rev $base_rev
+  - golangci-lint run --new-from-rev $base_rev
 
   # Get list of tests to run with race detection.
   # We don't want to run the entire demo set with it because it's large and race tests take a lot longer.
