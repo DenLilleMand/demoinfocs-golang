@@ -18,6 +18,7 @@ const (
 	propTypeArray
 	propTypeDataTable
 	propTypeInt64
+	propTypeTest
 )
 
 const (
